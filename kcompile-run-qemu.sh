@@ -1,7 +1,7 @@
 #!/bin/bash
 # todo(ezalenski): make linux version an env var
 
-apt -y install qemu-system-x86 libncurses-dev libelf-dev libssl-dev
+sudo apt -y install build-essential autoconf flex bison qemu-system-x86 libncurses-dev libelf-dev libssl-dev
 
 if ! [ -d linux-6.8.4 ]; then
   if ! [ -f linux-6.8.4.tar.xz ]; then
