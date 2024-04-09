@@ -1,7 +1,7 @@
 #!/bin/bash
 # todo(ezalenski): make linux version an env var
 
-sudo apt -y install build-essential autoconf flex bison qemu-system-x86 libncurses-dev libelf-dev libssl-dev
+sudo apt -y install build-essential flex bison qemu-system-x86 libncurses-dev libelf-dev libssl-dev
 
 if ! [ -d linux-6.8.4 ]; then
   if ! [ -f linux-6.8.4.tar.xz ]; then
@@ -12,7 +12,6 @@ fi
 
 if ! [ -f linux-6.8.4/arch/x86/boot/bzImage ]; then
   pushd linux-6.8.4
-  apt build-dep linux
   if ! [ -f .config ]; then
     make defconfig
     scripts/config --disable SYSTEM_TRUSTED_KEYS
@@ -33,7 +32,6 @@ if ! [ -f busybox/initramfs.cpio.gz ]; then
   pushd busybox
   if ! [ -f .config ]; then
     make defconfig
-    # sed .config
   fi 
   LDFLAGS="--static" make -j $(nproc) && LDFLAGS="--static" make install
   cd _install
